@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Customer } from './customer.entity';
 
 @Entity({name: 'address'})
@@ -19,6 +19,7 @@ export class Address {
   @Column()
   zip: string;
 
-  @ManyToOne(() => Customer, customer => customer.addresses)
+  @ManyToOne(() => Customer, customer => customer.addresses, {onDelete: 'CASCADE'})
+  @JoinColumn({name: 'customerId'})
   customer: Customer;
 }

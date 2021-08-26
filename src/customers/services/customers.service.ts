@@ -13,4 +13,19 @@ export class CustomersService {
     return await this.customerRepository.find();
   }
 
+  public async saveCustomer(customer: Customer): Promise<Customer> {
+    return await this.customerRepository.save(customer);
+  }
+
+  public async deleteCustomer(id: number) {
+    return await this.customerRepository.delete(id);
+  }
+
+  public async updateCustomer(id: number, customer: Customer) {
+    const customerToUpdate: Customer = await this.customerRepository.findOne(id);
+    Object.assign(customerToUpdate, customer);
+
+    return await this.customerRepository.save(customerToUpdate);
+  }
+
 }

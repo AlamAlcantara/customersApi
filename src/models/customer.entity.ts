@@ -16,7 +16,8 @@ export class Customer {
   @Column({unique: true})
   email: string;
 
-  @OneToMany(() => Address, address => address.customer)
+  @OneToMany(() => Address, address => address.customer,
+    {eager: true, cascade: true})
   addresses: Address[];
 
 }
