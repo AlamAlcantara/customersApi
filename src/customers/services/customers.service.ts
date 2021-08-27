@@ -13,6 +13,10 @@ export class CustomersService {
     return await this.customerRepository.find();
   }
 
+  public async getCustomerById(id: number): Promise<Customer> {
+    return await this.customerRepository.findOne(id);
+  }
+
   public async saveCustomer(customer: Customer): Promise<Customer> {
     return await this.customerRepository.save(customer);
   }

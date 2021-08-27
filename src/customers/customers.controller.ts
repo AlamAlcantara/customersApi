@@ -13,6 +13,11 @@ export class CustomersController {
     return await this.customersService.getAll();
   }
 
+  @Get(':id')
+  public async getCustomer(@Param('id') id: number) {
+    return this.customersService.getCustomerById(id);
+  }
+
   @Post()
   public async createCustomer(@Body() customer: Customer) {
     return await this.customersService.saveCustomer(customer);
