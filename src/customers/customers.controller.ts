@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { CustomersService } from './services/customers.service';
 import { Customer } from '../models/customer.entity';
 
@@ -15,7 +15,16 @@ export class CustomersController {
 
   @Get(':id')
   public async getCustomer(@Param('id') id: number) {
-    return this.customersService.getCustomerById(id);
+    const customer: Customer = await this.customersService.getCustomerById(id);
+
+    if (!customer) {
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'Cliente no existe',
+      }, HttpStatus.NOT_FOUND);
+    }
+
+    return customer;
   }
 
   @Post()
